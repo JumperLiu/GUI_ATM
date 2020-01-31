@@ -51,18 +51,28 @@ if __name__ == '__main__':
     # insert data
     # print('基表 [ {} ] 创建成功，开始注入数据……'.format(cpu.OriginType.__tablename__))
     # data = [
-    #     SysState(type_id=4, name='有效项目组'),
-    #     SysState(type_id=4, name='无效项目组'),
-    #     SysState(type_id=4, name='有效项目组员'),
-    #     SysState(type_id=4, name='无效项目组员')
+    #     SysState(type_id=10, name='无敌'),
+    #     SysState(type_id=10, name='有效'),
+    #     SysState(type_id=10, name='无效'),
+    #     SysState(type_id=10, name='冻结'),
+    #     SysState(type_id=10, name='已移除'),
+    #     SysState(type_id=11, name='审核'),
+    #     SysState(type_id=11, name='有效'),
+    #     SysState(type_id=11, name='无效'),
+    #     SysState(type_id=11, name='冻结')
     # ]
     # print('状态新增{}'.format('成功！' if cpu.install_all(data) else '失败……'))
     # update data
     # entities = cpu.query_all(condition='WHERE 1=1 ORDER BY ID')
-    # entities[0].Description = '电子信息学院大数据专业项目组状态：有效'
-    # entities[1].Description = '电子信息学院大数据专业项目组状态：无效'
-    # entities[2].Description = '电子信息学院大数据专业项目组员状态：有效'
-    # entities[3].Description = '电子信息学院大数据专业项目组员状态：无效'
+    # entities[0].Description = '管理员状态：无敌。'
+    # entities[1].Description = '管理员状态：有效。'
+    # entities[2].Description = '管理员状态：无效。'
+    # entities[3].Description = '管理员状态：冻结。'
+    # entities[4].Description = '管理员状态：已移除。'
+    # entities[5].Description = '客户状态：审核。'
+    # entities[6].Description = '客户状态：有效。'
+    # entities[7].Description = '客户状态：无效。'
+    # entities[8].Description = '客户状态：冻结。'
     # print('状态更新{}'.format('成功！' if cpu.update_all(entities, False) else '失败……'))
     # delete data
     # print('状态删除{}'.format('成功！' if cpu.delete_by(condition='WHERE ID IN (2, 4)') else '失败……'))

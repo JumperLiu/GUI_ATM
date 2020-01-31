@@ -51,18 +51,32 @@ if __name__ == '__main__':
     # insert data
     # print('基表 [ {} ] 创建成功，开始注入数据……'.format(cpu.OriginType.__tablename__))
     # data = [
-    #     SysType(parent_id=-1, name='大数据'),
-    #     SysType(parent_id=1, name='HP1901班'),
-    #     SysType(parent_id=1, name='HP1902班'),
-    #     SysType(parent_id=1, name='HP1903班')
+    #     SysType(parent_id=-1, name='分类根节点'),
+    #     SysType(parent_id=1, name='系统管理员分类'),
+    #     SysType(parent_id=2, name='超级管理员'),
+    #     SysType(parent_id=2, name='系统参数维护管理员'),
+    #     SysType(parent_id=1, name='数据信息管理员分类'),
+    #     SysType(parent_id=5, name='超级数据维护管理员'),
+    #     SysType(parent_id=5, name='数据新增管理员'),
+    #     SysType(parent_id=5, name='数据修改管理员'),
+    #     SysType(parent_id=5, name='数据冻结管理员'),
+    #     SysType(parent_id=1, name='管理员状态分类'),
+    #     SysType(parent_id=1, name='客户状态分类')
     # ]
     # print('分类新增{}'.format('成功！' if cpu.install_all(data) else '失败……'))
     # update data
     # entities = cpu.query_all(condition='WHERE 1=1 ORDER BY ID')
-    # entities[0].Description = '电子信息学院大数据班级分类'
-    # entities[1].Description = '电子信息学院大数据专业一班'
-    # entities[2].Description = '电子信息学院大数据专业二班'
-    # entities[3].Description = '电子信息学院大数据专业三班'
+    # entities[0].Description = '银行ATM系统分类根节点。'
+    # entities[1].Description = '银行ATM系统管理员分类一级子节点。'
+    # entities[2].Description = '银行ATM系统超级管理员分类二级子节点，具备一切管理权限，为最高级别管理者。'
+    # entities[3].Description = '银行ATM系统参数维护管理员分类二级子节点，具备系统内相关参数进行调整及修编，权限仅次于超级管理员，但不能进行数据信息维护。'
+    # entities[4].Description = '银行ATM系统数据信息管理员分类一级子节点。'
+    # entities[5].Description = '银行ATM系统超级数据维护管理员分类二级子节点，具备一切数据信息管理维护权限，为除系统参数外所有其它数据信息维护最高级别管理者。'
+    # entities[6].Description = '银行ATM系统数据新增管理员分类二级子节点，具备一切除系统参数外所有其它数据新增级别管理者，权限仅次于超级数据维护管理员。'
+    # entities[7].Description = '银行ATM系统数据修改管理员分类二级子节点，具备一切除系统参数外所有其它数据修改级别管理者，权限仅次于超级数据维护管理员。'
+    # entities[8].Description = '银行ATM系统数据冻结管理员分类二级子节点，具备一切除系统参数外所有其它数据冻结级别管理者，权限仅次于超级数据维护管理员。'
+    # entities[9].Description = '银行ATM系统管理员状态分类一级子节点。'
+    # entities[10].Description = '银行ATM系统客户状态分类一级子节点。'
     # print('分类更新{}'.format('成功！' if cpu.update_all(entities, False) else '失败……'))
     # delete data
     # print('分类删除{}'.format('成功！' if cpu.delete_by(condition='WHERE ID>=2') else '失败……'))

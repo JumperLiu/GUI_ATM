@@ -10,6 +10,7 @@
 # @Version	    	:	Python 3.8.1
 from sqlalchemy import Table, MetaData, Column, Boolean, DATE, String, UniqueConstraint, Index
 from ORM.Core.Origin import Origin
+from ORM.Common.Utils import Utils
 
 
 class Personnel(Origin, Origin.base):
@@ -37,16 +38,17 @@ class Personnel(Origin, Origin.base):
         Index('ix_Personnels_State_Valid', 'State', 'Valid')
     )
 
-    def __init__(self, current_id=None, type_id=None, personnel_unique_id=None, name=None, gender=True, birthday=None,
-                 login_name=None, login_password=None, state=None, valid=True, create_time=None, modify_time=None,
-                 controller=None, description=None):
+    def __init__(self, current_id=None, type_id=None, personnel_unique_id=None, name=None, gender=True,
+                 birthday=None, login_name=None, login_password=None, state=None, valid=True,
+                 create_time=None, modify_time=None, controller=None, description=None):
         super().__init__(current_id, type_id, state, valid, controller, create_time, modify_time, description)
+        self.Tools = Utils()
         self.PersonnelUniqueID = personnel_unique_id
         self.Name = name
         self.Gender = gender
         self.Birthday = birthday
         self.LoginName = login_name
-        self.LoginPassword = login_password
+        self.LoginPassword = self.Tools.encrypt(login_password)
 
     def __repr__(self):
         return 'ID = {}, TypeID = {}, PersonnelUniqueID = {}, Name = {}, Gender = {}, Birthday = {}, LoginName = {}, ' \
@@ -59,7 +61,6 @@ class Personnel(Origin, Origin.base):
 
 if __name__ == '__main__':
     pass
-    # from hashlib import md5
     # from ORM.Core.CPU import CPU
     # cpu = CPU(Personnel)
     # create table
@@ -68,14 +69,14 @@ if __name__ == '__main__':
     #     exit(0)
     # insert data
     # print('基表 [ {} ] 创建成功，开始注入数据……'.format(cpu.OriginType.__tablename__))
-    # m = md5()
-    # m.update(str.encode('jumper_79'))
-    # personnel = Personnel(type_id=4, personnel_unique_id='610112197903130014', name='刘志鹏', login_name='jumper79',
-    #                       login_password=m.hexdigest(), state=3)
+    # personnel = Personnel(type_id=2, personnel_unique_id='610112197903130014', name='刘志鹏', login_name='jumper79',
+    #                       login_password='jumper_79', state=1)
     # print('人员新增{}'.format('成功！' if cpu.install_any(personnel) else '失败……'))
     # update data
     # personnel = cpu.query_one(Personnel(current_id=1))
-    # personnel.Description = '大数据专业项目经理'
+    # personnel.Birthday = '1979-3-13'
+    # personnel.Controller = 1
+    # personnel.Description = '银行ATM系统超级管理员，大数据专业讲师，Apple developer。'
     # print('人员更新{}'.format('成功！' if cpu.update_any(personnel, check=False) else '失败……'))
     # delete data
     # personnel = cpu.query_one(Personnel(current_id=1))
