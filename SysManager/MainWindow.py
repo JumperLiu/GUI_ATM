@@ -7,21 +7,24 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from ORM.Common.Base import Base
+from PyQt5 import QtGui
+from ORM.Common.Base import *
 from ORM.Common.Styles import *
+from SysManager.Images_res_rc import *
+from SysManager.CustomQLabel import CustomQLabel
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1200, 760)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                                           QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(1200, 760))
+        MainWindow.setMinimumSize(QtCore.QSize(0, 0))
         MainWindow.setMaximumSize(QtCore.QSize(1200, 760))
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
@@ -31,13 +34,15 @@ class Ui_MainWindow(object):
         MainWindow.setFont(font)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet(main_background_style())
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowMinMaxButtonsHint |
+                                  QtCore.Qt.MSWindowsFixedSizeDialogHint | QtCore.Qt.WindowCloseButtonHint)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
         self.centralwidget.setSizePolicy(sizePolicy)
-        self.centralwidget.setMinimumSize(QtCore.QSize(1200, 760))
+        self.centralwidget.setMinimumSize(QtCore.QSize(0, 0))
         self.centralwidget.setMaximumSize(QtCore.QSize(1200, 760))
         self.centralwidget.setSizeIncrement(QtCore.QSize(10, 6))
         self.centralwidget.setBaseSize(QtCore.QSize(1200, 760))
@@ -47,6 +52,9 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.centralwidget.setFont(font)
+        icon = QtGui.QIcon()
+        icon.addPixmap(message_dialog_image_style('logo.ico'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget.setAutoFillBackground(False)
         self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
@@ -186,12 +194,95 @@ class Ui_MainWindow(object):
         spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Button.addItem(spacerItem11)
         self.VLO_Main.addLayout(self.HLO_Button)
-        self.gridLayout.addLayout(self.VLO_Main, 2, 0, 1, 1)
-        spacerItem12 = QtWidgets.QSpacerItem(20, 160, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem12, 3, 0, 1, 1)
-        spacerItem13 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem13, 0, 0, 1, 1)
+        self.gridLayout.addLayout(self.VLO_Main, 3, 0, 1, 1)
+        spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem12, 1, 0, 1, 1)
+        self.HLO_Title = QtWidgets.QHBoxLayout()
+        self.HLO_Title.setObjectName("HLO_Title")
+        spacerItem13 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.HLO_Title.addItem(spacerItem13)
+        self.LBL_Title_Icon = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.LBL_Title_Icon.setMinimumSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Icon.setMaximumSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Icon.setBaseSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Icon.setText("")
+        self.LBL_Title_Icon.setAlignment(QtCore.Qt.AlignCenter)
+        self.LBL_Title_Icon.setObjectName("LBL_Title_Icon")
+        self.LBL_Title_Icon.setPixmap(icon_style())
+        self.LBL_Title_Icon.setScaledContents(True)
+        self.LBL_Title_Icon.setStyleSheet(transparent_label_style())
+        self.HLO_Title.addWidget(self.LBL_Title_Icon)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.HLO_Title.addItem(spacerItem14)
+        self.LBL_Title_Head = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.LBL_Title_Head.setMinimumSize(QtCore.QSize(1010, 40))
+        self.LBL_Title_Head.setMaximumSize(QtCore.QSize(1010, 40))
+        self.LBL_Title_Head.setBaseSize(QtCore.QSize(1010, 40))
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.LBL_Title_Head.setFont(font)
+        self.LBL_Title_Head.setObjectName("LBL_Title_Head")
+        self.LBL_Title_Head.setStyleSheet(head_label_style())
+        self.HLO_Title.addWidget(self.LBL_Title_Head)
+        spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.HLO_Title.addItem(spacerItem15)
+        # self.LBL_Title_Min_Zoon = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.LBL_Title_Min_Zoom = CustomQLabel(self.gridLayoutWidget)
+        self.LBL_Title_Min_Zoom.setMinimumSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Min_Zoom.setMaximumSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Min_Zoom.setBaseSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Min_Zoom.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.LBL_Title_Min_Zoom.setAlignment(QtCore.Qt.AlignCenter)
+        # font = QtGui.QFont()
+        # font.setFamily("微软雅黑")
+        # font.setPointSize(26)
+        # font.setBold(True)
+        # font.setWeight(75)
+        # self.LBL_Title_Min_Zoon.setFont(font)
+        # self.LBL_Title_Min_Zoon.setText("••")
+        self.LBL_Title_Min_Zoom.setPixmap(get_image('min_zoom_normal.png'))
+        self.LBL_Title_Min_Zoom.setStyleSheet(transparent_label_style())
+        self.LBL_Title_Min_Zoom.setObjectName("LBL_Title_Min_Zoom")
+        self.LBL_Title_Min_Zoom.setStyleSheet(transparent_label_style())
+        self.LBL_Title_Min_Zoom.ML_Signal.connect(self.min_zoom_normal)
+        self.LBL_Title_Min_Zoom.ME_Signal.connect(self.min_zoom_hover)
+        self.LBL_Title_Min_Zoom.MP_Signal.connect(self.min_zoom_click)
+        self.LBL_Title_Min_Zoom.setScaledContents(True)
+        self.HLO_Title.addWidget(self.LBL_Title_Min_Zoom)
+        spacerItem16 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.HLO_Title.addItem(spacerItem16)
+        self.LBL_Title_Shutdown = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.LBL_Title_Shutdown.setMinimumSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Shutdown.setMaximumSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Shutdown.setBaseSize(QtCore.QSize(40, 40))
+        self.LBL_Title_Shutdown.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.LBL_Title_Shutdown.setAlignment(QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.LBL_Title_Shutdown.setFont(font)
+        self.LBL_Title_Shutdown.setText("☀")
+        self.LBL_Title_Shutdown.setObjectName("LBL_Title_Shutdown")
+        self.LBL_Title_Shutdown.setScaledContents(True)
+        self.LBL_Title_Shutdown.setStyleSheet(shutdown_style())
+        self.HLO_Title.addWidget(self.LBL_Title_Shutdown)
+        spacerItem17 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.HLO_Title.addItem(spacerItem17)
+        self.gridLayout.addLayout(self.HLO_Title, 0, 0, 1, 1)
+        spacerItem18 = QtWidgets.QSpacerItem(20, 160, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem18, 4, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
+        # 设置界面鼠标事件追踪
+        self.centralwidget.setMouseTracking(True)
+        # 设置界面背景为透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        # 设置窗体透明度为98%
+        MainWindow.setWindowOpacity(0.98)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -204,6 +295,20 @@ class Ui_MainWindow(object):
         self.LBL_LoginPassword.setText(_translate("MainWindow", "登录密码 ："))
         self.PBTN_Submit.setText(_translate("MainWindow", "登 录"))
         self.PBTN_Reset.setText(_translate("MainWindow", "重 置"))
+        self.LBL_Title_Head.setText(_translate("MainWindow", "银行 ATM 柜员机模拟程序"))
+
+    def min_zoom_normal(self):
+        self.LBL_Title_Min_Zoom.setPixmap(get_image('min_zoom_normal.png'))
+        self.LBL_Title_Min_Zoom.repaint()
+
+    def min_zoom_hover(self):
+        self.LBL_Title_Min_Zoom.setPixmap(get_image('min_zoom_hover.png'))
+        self.LBL_Title_Min_Zoom.repaint()
+        self.LBL_Title_Min_Zoom.setToolTip('点击可使应用窗体最小化。')
+
+    def min_zoom_click(self):
+        self.centralwidget.setWindowState(QtCore.Qt.WindowMinimized)
+        print('窗口如何最小化？？？')
 
     def resetLoginLE(self):
         self.LE_LoginName.clear()
@@ -214,8 +319,9 @@ class Ui_MainWindow(object):
         login_name = self.LE_LoginName.text().strip()
         login_password = self.LE_LoginPassword.text().strip()
         if len(login_name) == 0:
-            QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录名称 】 信息……",
-                                          QtWidgets.QMessageBox.Ok)
+            # QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录名称 】 信息……",
+            #                               QtWidgets.QMessageBox.Ok)
+            msg()
         elif len(login_password) == 0:
             QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录密码 】 信息……",
                                           QtWidgets.QMessageBox.Ok)
