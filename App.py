@@ -9,7 +9,6 @@
 # @Site		    	:	https://www.jetbrains.com/pycharm/
 # @Version	    	:	Python 3.8.0
 if __name__ == '__main__':
-    # pass
     import sys
     from PyQt5.QtWidgets import QApplication, QMainWindow
     from SysManager import MainWindow
@@ -19,7 +18,3 @@ if __name__ == '__main__':
     ui.setupUi(mw)
     mw.show()
     sys.exit(app.exec_())
-    # from Origin.Dao.SysTypeDao import SysTypeDao
-    # from Origin.Model.SysType import SysType
-    # print(SysTypeDao().insert(SysType(1, -1, '果汁'), SysType(2, 1, '芒果汁'), SysType(3, 1, '香蕉汁'),
-    #                           SysType(4, 1, '橙汁')))
