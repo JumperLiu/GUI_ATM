@@ -1,8 +1,8 @@
 # -- * -- coding : utf-8 -- * --
 # @Author	    	:	Jumper.Liu
 # @Project	    	:	GUI_ATM_Project
-# @File		    	:	CustomQMainWindow.py
-# @Time		    	:	2020/2/1 22:42
+# @File		    	:	IQMMsgDialog.py
+# @Time		    	:	2020/2/2 21:48
 # @Contact	    	:	Cynosure0313@live.cn
 # @License	    	:	(C) Copyright 2019-2020
 # @Software(IDE)	:	PyCharm
@@ -10,12 +10,12 @@
 # @Version	    	:	Python 3.8.1
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QMouseEvent
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QDialog
 
 
-class CustomQMainWindow(QMainWindow):
+class IQMMsgDialog(QDialog):
     def __init__(self, parent=None):
-        super(CustomQMainWindow, self).__init__(parent)
+        super(IQMMsgDialog, self).__init__(parent)
         self.m_flag = False
         self.m_position = None
 

@@ -12,16 +12,21 @@ from ORM.Core.CPU import CPU
 from ORM.Common.Enums import *
 from ORM.Common.Utils import Utils
 from ORM.Models.Personnel import Personnel
-from PyQt5 import QtCore, QtWidgets
-from SysManager.CustomMessageDialog import Ui_CustomMessageDialog
+from PyQt5.QtCore import Qt
+from SysManager.Custom.IQMMsgDialog import IQMMsgDialog
+from SysManager.Custom.IQMsgDialog import Ui_IQMsgDialog
 
 
-def msg(msg_type: MessageDialogType, title: str, content: str, buttons: ButtonListType, **buttons_label):
-    d = QtWidgets.QDialog()
-    cmd = Ui_CustomMessageDialog()
-    cmd.setupUi(d)
-    d.setWindowModality(QtCore.Qt.ApplicationModal)
-    d.exec_()
+def msg(msg_type: MessageDialogType, title: str, title_page: str, content: str, buttons: ButtonListType,
+        l_bt_label: str = '提交', l_bt_tip=None, c_bt_label: str = '重置',  c_bt_tip=None,
+        r_bt_label: str = '取消', r_bt_tip=None) -> ResultType:
+    msg_dialog = IQMMsgDialog()
+    ui = Ui_IQMsgDialog()
+    ui.setupUi(msg_dialog, msg_type, title, title_page, content, buttons, l_bt_label, l_bt_tip, c_bt_label, c_bt_tip,
+               r_bt_label, r_bt_tip)
+    msg_dialog.setWindowModality(Qt.ApplicationModal)
+    msg_dialog.exec_()
+    return ui.returnClickButton
 
 
 class Base:

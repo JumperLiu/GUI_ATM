@@ -1,7 +1,7 @@
 # -- * -- coding : utf-8 -- * --
 # @Author	    	:	Jumper.Liu
 # @Project	    	:	GUI_ATM_Project
-# @File		    	:	CustomQLabel.py
+# @File		    	:	IQLabel.py
 # @Time		    	:	2020/2/2 0:00
 # @Contact	    	:	Cynosure0313@live.cn
 # @License	    	:	(C) Copyright 2019-2020
@@ -11,25 +11,24 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QApplication, QLabel
-from ORM.Common.Base import msg
 from ORM.Common.Styles import get_image
-from SysManager.CustomQMainWindow import CustomQMainWindow
+from SysManager.Custom.IQMainWindow import IQMainWindow
 
 
-class CustomQLabel(QLabel):
+class IQLabel(QLabel):
     MP_Signal = pyqtSignal()
     MR_Signal = pyqtSignal()
     ME_Signal = pyqtSignal()
     ML_Signal = pyqtSignal()
 
     def __init__(self, parent=None):
-        super(CustomQLabel, self).__init__(parent)
+        super(IQLabel, self).__init__(parent)
         self.setMouseTracking(True)
         self.formatExt: str = 'png'
         self.normalImage: str or None = None
         self.hoverImage: str or None = None
         self.hoverToolTip: str or None = None
-        self.parentWindow: CustomQMainWindow or None = None
+        self.parentWindow: IQMainWindow or None = None
         self.__app__: QApplication or None = None
         self.pressed = False
         self.hovered = False

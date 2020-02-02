@@ -6,11 +6,11 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtWidgets
 from ORM.Common.Base import *
 from ORM.Common.Styles import *
 from SysManager.Images_res_rc import *
-from SysManager.CustomQLabel import CustomQLabel
+from SysManager.Custom.IQLabel import IQLabel
 
 
 class Ui_MainWindow(object):
@@ -35,7 +35,8 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(main_background_style())
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowMinMaxButtonsHint |
                                   QtCore.Qt.MSWindowsFixedSizeDialogHint | QtCore.Qt.WindowCloseButtonHint)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                                           QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -51,9 +52,6 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.centralwidget.setFont(font)
-        icon = QtGui.QIcon()
-        icon.addPixmap(message_dialog_image_style('logo.ico'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
         self.centralwidget.setAutoFillBackground(False)
         self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
@@ -201,7 +199,7 @@ class Ui_MainWindow(object):
         spacerItem13 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem13)
         # 构造带鼠标事件的QLabel对象
-        self.LBL_Title_Icon = CustomQLabel(self.gridLayoutWidget)
+        self.LBL_Title_Icon = IQLabel(self.gridLayoutWidget)
         self.LBL_Title_Icon.setMinimumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Icon.setMaximumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Icon.setBaseSize(QtCore.QSize(40, 40))
@@ -236,7 +234,7 @@ class Ui_MainWindow(object):
         spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem15)
         # 构造带鼠标事件的QLabel对象
-        self.LBL_Title_Min_Zoom = CustomQLabel(self.gridLayoutWidget)
+        self.LBL_Title_Min_Zoom = IQLabel(self.gridLayoutWidget)
         self.LBL_Title_Min_Zoom.setMinimumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Min_Zoom.setMaximumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Min_Zoom.setBaseSize(QtCore.QSize(40, 40))
@@ -258,7 +256,7 @@ class Ui_MainWindow(object):
         spacerItem16 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem16)
         # 构造带鼠标事件的QLabel对象
-        self.LBL_Title_Shutdown = CustomQLabel(self.gridLayoutWidget)
+        self.LBL_Title_Shutdown = IQLabel(self.gridLayoutWidget)
         self.LBL_Title_Shutdown.setMinimumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Shutdown.setMaximumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Shutdown.setBaseSize(QtCore.QSize(40, 40))
@@ -311,9 +309,8 @@ class Ui_MainWindow(object):
         login_name = self.LE_LoginName.text().strip()
         login_password = self.LE_LoginPassword.text().strip()
         if len(login_name) == 0:
-            # QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录名称 】 信息……",
-            #                               QtWidgets.QMessageBox.Ok)
-            msg(MessageDialogType.ABOUT, '信息显示界面', '这就是信息而已', ButtonListType.OK)
+            print(msg(MessageDialogType.INFORMATION, '登录信息校验异常信息提示', '登录信息校验异常',
+                      '注意：您尚未填写 【 登录名称 】 信息……', ButtonListType.OK, c_bt_label='确  定'))
         elif len(login_password) == 0:
             QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录密码 】 信息……",
                                           QtWidgets.QMessageBox.Ok)

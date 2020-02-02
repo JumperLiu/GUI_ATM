@@ -12,9 +12,9 @@ if __name__ == '__main__':
     import sys
     from PyQt5.QtWidgets import QApplication
     from SysManager import MainWindow
-    from SysManager.CustomQMainWindow import CustomQMainWindow
+    from SysManager.Custom.IQMainWindow import IQMainWindow
     app = QApplication(sys.argv)
-    mw = CustomQMainWindow()
+    mw = IQMainWindow()
     ui = MainWindow.Ui_MainWindow()
     ui.setupUi(mw)
     mw.show()
