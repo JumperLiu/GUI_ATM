@@ -121,7 +121,3 @@ def message_dialog_image_style(image_name: str = 'information.png') -> QPixmap:
 
 def get_image(image_name: str = None, width: int = 40, height: int = 40) -> QPixmap:
     return message_dialog_image_style(image_name).scaled(QtCore.QSize(width, height), QtCore.Qt.KeepAspectRatio)
-
-
-def icon_style() -> QPixmap:
-    return get_image('logo.ico')

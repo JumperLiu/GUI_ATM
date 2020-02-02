@@ -6,7 +6,6 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtGui
 from ORM.Common.Base import *
 from ORM.Common.Styles import *
@@ -201,14 +200,21 @@ class Ui_MainWindow(object):
         self.HLO_Title.setObjectName("HLO_Title")
         spacerItem13 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem13)
-        self.LBL_Title_Icon = QtWidgets.QLabel(self.gridLayoutWidget)
+        # 构造带鼠标事件的QLabel对象
+        self.LBL_Title_Icon = CustomQLabel(self.gridLayoutWidget)
         self.LBL_Title_Icon.setMinimumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Icon.setMaximumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Icon.setBaseSize(QtCore.QSize(40, 40))
         self.LBL_Title_Icon.setText("")
         self.LBL_Title_Icon.setAlignment(QtCore.Qt.AlignCenter)
         self.LBL_Title_Icon.setObjectName("LBL_Title_Icon")
-        self.LBL_Title_Icon.setPixmap(icon_style())
+        self.LBL_Title_Icon.formatExt = 'png'
+        self.LBL_Title_Icon.normalImage = 'icon_normal_01'
+        self.LBL_Title_Icon.hoverImage = 'icon_hover_01'
+        self.LBL_Title_Icon.hoverToolTip = 'Author : Cynsoure0313@live.cn'
+        self.LBL_Title_Icon.setNormalImage()
+        self.LBL_Title_Icon.ME_Signal.connect(self.LBL_Title_Icon.setHoverImage)
+        self.LBL_Title_Icon.ML_Signal.connect(self.LBL_Title_Icon.setNormalImage)
         self.LBL_Title_Icon.setScaledContents(True)
         self.LBL_Title_Icon.setStyleSheet(transparent_label_style())
         self.HLO_Title.addWidget(self.LBL_Title_Icon)
@@ -229,47 +235,46 @@ class Ui_MainWindow(object):
         self.HLO_Title.addWidget(self.LBL_Title_Head)
         spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem15)
-        # self.LBL_Title_Min_Zoon = QtWidgets.QLabel(self.gridLayoutWidget)
+        # 构造带鼠标事件的QLabel对象
         self.LBL_Title_Min_Zoom = CustomQLabel(self.gridLayoutWidget)
         self.LBL_Title_Min_Zoom.setMinimumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Min_Zoom.setMaximumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Min_Zoom.setBaseSize(QtCore.QSize(40, 40))
         self.LBL_Title_Min_Zoom.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.LBL_Title_Min_Zoom.setAlignment(QtCore.Qt.AlignCenter)
-        # font = QtGui.QFont()
-        # font.setFamily("微软雅黑")
-        # font.setPointSize(26)
-        # font.setBold(True)
-        # font.setWeight(75)
-        # self.LBL_Title_Min_Zoon.setFont(font)
-        # self.LBL_Title_Min_Zoon.setText("••")
-        self.LBL_Title_Min_Zoom.setPixmap(get_image('min_zoom_normal.png'))
-        self.LBL_Title_Min_Zoom.setStyleSheet(transparent_label_style())
         self.LBL_Title_Min_Zoom.setObjectName("LBL_Title_Min_Zoom")
-        self.LBL_Title_Min_Zoom.setStyleSheet(transparent_label_style())
-        self.LBL_Title_Min_Zoom.ML_Signal.connect(self.min_zoom_normal)
-        self.LBL_Title_Min_Zoom.ME_Signal.connect(self.min_zoom_hover)
-        self.LBL_Title_Min_Zoom.MP_Signal.connect(self.min_zoom_click)
+        self.LBL_Title_Min_Zoom.formatExt = 'png'
+        self.LBL_Title_Min_Zoom.normalImage = 'min_zoom_normal'
+        self.LBL_Title_Min_Zoom.hoverImage = 'min_zoom_hover'
+        self.LBL_Title_Min_Zoom.hoverToolTip = '点击可将窗口最小化！'
+        self.LBL_Title_Min_Zoom.parentWindow = self.centralwidget.parent()
+        self.LBL_Title_Min_Zoom.ME_Signal.connect(self.LBL_Title_Min_Zoom.setHoverImage)
+        self.LBL_Title_Min_Zoom.ML_Signal.connect(self.LBL_Title_Min_Zoom.setNormalImage)
+        self.LBL_Title_Min_Zoom.setNormalImage()
         self.LBL_Title_Min_Zoom.setScaledContents(True)
+        self.LBL_Title_Min_Zoom.setStyleSheet(transparent_label_style())
+        self.LBL_Title_Min_Zoom.MP_Signal.connect(self.LBL_Title_Min_Zoom.setMinWindow)
         self.HLO_Title.addWidget(self.LBL_Title_Min_Zoom)
         spacerItem16 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem16)
-        self.LBL_Title_Shutdown = QtWidgets.QLabel(self.gridLayoutWidget)
+        # 构造带鼠标事件的QLabel对象
+        self.LBL_Title_Shutdown = CustomQLabel(self.gridLayoutWidget)
         self.LBL_Title_Shutdown.setMinimumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Shutdown.setMaximumSize(QtCore.QSize(40, 40))
         self.LBL_Title_Shutdown.setBaseSize(QtCore.QSize(40, 40))
         self.LBL_Title_Shutdown.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.LBL_Title_Shutdown.setAlignment(QtCore.Qt.AlignCenter)
-        font = QtGui.QFont()
-        font.setFamily("微软雅黑")
-        font.setPointSize(20)
-        font.setBold(True)
-        font.setWeight(75)
-        self.LBL_Title_Shutdown.setFont(font)
-        self.LBL_Title_Shutdown.setText("☀")
         self.LBL_Title_Shutdown.setObjectName("LBL_Title_Shutdown")
+        self.LBL_Title_Shutdown.formatExt = 'png'
+        self.LBL_Title_Shutdown.normalImage = 'shutdown_normal'
+        self.LBL_Title_Shutdown.hoverImage = 'shutdown_hover'
+        self.LBL_Title_Shutdown.hoverToolTip = '点击将退出系统！'
+        self.LBL_Title_Shutdown.ME_Signal.connect(self.LBL_Title_Shutdown.setHoverImage)
+        self.LBL_Title_Shutdown.ML_Signal.connect(self.LBL_Title_Shutdown.setNormalImage)
+        self.LBL_Title_Shutdown.setNormalImage()
         self.LBL_Title_Shutdown.setScaledContents(True)
-        self.LBL_Title_Shutdown.setStyleSheet(shutdown_style())
+        self.LBL_Title_Shutdown.setStyleSheet(transparent_label_style())
+        self.LBL_Title_Shutdown.MP_Signal.connect(self.LBL_Title_Shutdown.setCloseWindow)
         self.HLO_Title.addWidget(self.LBL_Title_Shutdown)
         spacerItem17 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_Title.addItem(spacerItem17)
@@ -297,19 +302,6 @@ class Ui_MainWindow(object):
         self.PBTN_Reset.setText(_translate("MainWindow", "重 置"))
         self.LBL_Title_Head.setText(_translate("MainWindow", "银行 ATM 柜员机模拟程序"))
 
-    def min_zoom_normal(self):
-        self.LBL_Title_Min_Zoom.setPixmap(get_image('min_zoom_normal.png'))
-        self.LBL_Title_Min_Zoom.repaint()
-
-    def min_zoom_hover(self):
-        self.LBL_Title_Min_Zoom.setPixmap(get_image('min_zoom_hover.png'))
-        self.LBL_Title_Min_Zoom.repaint()
-        self.LBL_Title_Min_Zoom.setToolTip('点击可使应用窗体最小化。')
-
-    def min_zoom_click(self):
-        self.centralwidget.setWindowState(QtCore.Qt.WindowMinimized)
-        print('窗口如何最小化？？？')
-
     def resetLoginLE(self):
         self.LE_LoginName.clear()
         self.LE_LoginPassword.clear()
@@ -321,7 +313,7 @@ class Ui_MainWindow(object):
         if len(login_name) == 0:
             # QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录名称 】 信息……",
             #                               QtWidgets.QMessageBox.Ok)
-            msg()
+            msg(MessageDialogType.ABOUT, '信息显示界面', '这就是信息而已', ButtonListType.OK)
         elif len(login_password) == 0:
             QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录密码 】 信息……",
                                           QtWidgets.QMessageBox.Ok)

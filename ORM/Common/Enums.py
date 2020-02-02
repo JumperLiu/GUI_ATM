@@ -19,3 +19,17 @@ class MessageDialogType(IntEnum):
     ERROR = 5
     SUCCESS = 6
     FAILS = 7
+
+
+class ButtonListType(IntEnum):
+    OK = 1
+    YESNO = 2
+    OKCANCEL = 3
+    YESNOCANCEL = 4
+
+
+class ResultType(IntEnum):
+    OK = 1
+    YES = 2
+    NO = 3
+    CANCEL = 4

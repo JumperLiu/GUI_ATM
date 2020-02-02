@@ -9,13 +9,14 @@
 # @Site		    	:	https://www.jetbrains.com/pycharm/
 # @Version	    	:	Python 3.8.1
 from ORM.Core.CPU import CPU
+from ORM.Common.Enums import *
 from ORM.Common.Utils import Utils
 from ORM.Models.Personnel import Personnel
 from PyQt5 import QtCore, QtWidgets
 from SysManager.CustomMessageDialog import Ui_CustomMessageDialog
 
 
-def msg():
+def msg(msg_type: MessageDialogType, title: str, content: str, buttons: ButtonListType, **buttons_label):
     d = QtWidgets.QDialog()
     cmd = Ui_CustomMessageDialog()
     cmd.setupUi(d)

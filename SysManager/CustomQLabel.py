@@ -10,7 +10,10 @@
 # @Version	    	:	Python 3.8.1
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QApplication, QLabel
+from ORM.Common.Base import msg
+from ORM.Common.Styles import get_image
+from SysManager.CustomQMainWindow import CustomQMainWindow
 
 
 class CustomQLabel(QLabel):
@@ -22,8 +25,15 @@ class CustomQLabel(QLabel):
     def __init__(self, parent=None):
         super(CustomQLabel, self).__init__(parent)
         self.setMouseTracking(True)
+        self.formatExt: str = 'png'
+        self.normalImage: str or None = None
+        self.hoverImage: str or None = None
+        self.hoverToolTip: str or None = None
+        self.parentWindow: CustomQMainWindow or None = None
+        self.__app__: QApplication or None = None
         self.pressed = False
         self.hovered = False
+        self.parentWindowMined = False
 
     def mousePressEvent(self, _: QMouseEvent):
         if not self.pressed:
@@ -45,3 +55,35 @@ class CustomQLabel(QLabel):
             self.ML_Signal.emit()
             self.hovered = False
 
+    def __setImage__(self, hover: bool = False):
+        # if hover:
+        #     if self.hoverImage.find('.{}'.format(self.formatExt)) != -1:
+        #         image = self.hoverImage
+        #     else:
+        #         image = '{}.{}'.format(self.hoverImage, self.formatExt)
+        # else:
+        #     if self.normalImage.find('.{}'.format(self.formatExt)) != -1:
+        #         image = self.normalImage
+        #     else:
+        #         image = '{}.{}'.format(self.normalImage, self.formatExt)
+        image = (self.hoverImage if (self.hoverImage.find('.{}'.format(self.formatExt)) != -1)
+                 else '{}.{}'.format(self.hoverImage, self.formatExt)) if hover else \
+            (self.normalImage if (self.normalImage.find('.{}'.format(self.formatExt)) != -1)
+             else '{}.{}'.format(self.normalImage, self.formatExt))
+        self.setPixmap(get_image(image))
+        self.repaint()
+
+    def setNormalImage(self):
+        self.__setImage__()
+
+    def setHoverImage(self):
+        self.__setImage__(True)
+        self.setToolTip(self.hoverToolTip)
+
+    def setMinWindow(self):
+        self.parentWindow.showMinimized()
+        self.parentWindowMined = True
+
+    def setCloseWindow(self):
+        self.__app__ = QApplication.instance()
+        self.__app__.quit()
