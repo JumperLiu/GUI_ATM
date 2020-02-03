@@ -246,9 +246,9 @@ class Ui_MainWindow(object):
         self.LBL_Title_Min_Zoom.hoverImage = 'min_zoom_hover'
         self.LBL_Title_Min_Zoom.hoverToolTip = '点击可将窗口最小化！'
         self.LBL_Title_Min_Zoom.parentWindow = self.centralwidget.parent()
+        self.LBL_Title_Min_Zoom.setNormalImage()
         self.LBL_Title_Min_Zoom.ME_Signal.connect(self.LBL_Title_Min_Zoom.setHoverImage)
         self.LBL_Title_Min_Zoom.ML_Signal.connect(self.LBL_Title_Min_Zoom.setNormalImage)
-        self.LBL_Title_Min_Zoom.setNormalImage()
         self.LBL_Title_Min_Zoom.setScaledContents(True)
         self.LBL_Title_Min_Zoom.setStyleSheet(transparent_label_style())
         self.LBL_Title_Min_Zoom.MP_Signal.connect(self.LBL_Title_Min_Zoom.setMinWindow)
@@ -267,9 +267,9 @@ class Ui_MainWindow(object):
         self.LBL_Title_Shutdown.normalImage = 'shutdown_normal'
         self.LBL_Title_Shutdown.hoverImage = 'shutdown_hover'
         self.LBL_Title_Shutdown.hoverToolTip = '点击将退出系统！'
+        self.LBL_Title_Shutdown.setNormalImage()
         self.LBL_Title_Shutdown.ME_Signal.connect(self.LBL_Title_Shutdown.setHoverImage)
         self.LBL_Title_Shutdown.ML_Signal.connect(self.LBL_Title_Shutdown.setNormalImage)
-        self.LBL_Title_Shutdown.setNormalImage()
         self.LBL_Title_Shutdown.setScaledContents(True)
         self.LBL_Title_Shutdown.setStyleSheet(transparent_label_style())
         self.LBL_Title_Shutdown.MP_Signal.connect(self.LBL_Title_Shutdown.setCloseWindow)
@@ -309,18 +309,19 @@ class Ui_MainWindow(object):
         login_name = self.LE_LoginName.text().strip()
         login_password = self.LE_LoginPassword.text().strip()
         if len(login_name) == 0:
-            print(msg(MessageDialogType.INFORMATION, '登录信息校验异常信息提示', '登录信息校验异常',
-                      '注意：您尚未填写 【 登录名称 】 信息……', ButtonListType.OK, c_bt_label='确  定'))
+            msg(MessageDialogType.INFORMATION, '登录信息校验异常信息提示', '登录信息校验异常',
+                '注意：您尚未填写 【 登录名称 】 信息……', ButtonListType.OK, c_bt_label='确  定')
+            self.LE_LoginName.setFocus()
         elif len(login_password) == 0:
-            QtWidgets.QMessageBox.warning(self.PBTN_Submit, "登录信息校验异常信息提示", "注意：您尚未填写 【 登录密码 】 信息……",
-                                          QtWidgets.QMessageBox.Ok)
+            msg(MessageDialogType.INFORMATION, '登录信息校验异常信息提示', '登录信息校验异常',
+                '注意：您尚未填写 【 登录密码 】 信息……', ButtonListType.OK, c_bt_label='确  定')
+            self.LE_LoginPassword.setFocus()
         else:
             login_user = Base().login(login_name, login_password)
             if login_user is None:
-                ask = QtWidgets.QMessageBox.critical(self.PBTN_Submit, '登录信息校验异常信息提示',
-                                                     '抱歉：您输入的 【 登录名称 或 登录密码 】 有误，是否重新输入登录信息？',
-                                                     QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                if ask == QtWidgets.QMessageBox.Yes:
+                if msg(MessageDialogType.INFORMATION, '登录信息校验异常信息提示', '登录信息校验异常',
+                       '抱歉：您输入的 【 登录名称 或 登录密码 】 有误，是否重新输入登录信息？', ButtonListType.YESNO,
+                       l_bt_label='确 定 重 输', r_bt_label='放 弃 重 输') == ResultType.YES:
                     self.resetLoginLE()
             else:
-                QtWidgets.QMessageBox.about(self.PBTN_Submit, '登录成功信息提示', '恭喜：您已成功登录银行 ATM 系统！')
+                msg(MessageDialogType.SHOW, '登录成功信息提示', '登录成功', '恭喜：您已成功登录 银行 ATM 系统！', elapse=2.0)

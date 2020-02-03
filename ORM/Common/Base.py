@@ -17,13 +17,14 @@ from SysManager.Custom.IQMMsgDialog import IQMMsgDialog
 from SysManager.Custom.IQMsgDialog import Ui_IQMsgDialog
 
 
-def msg(msg_type: MessageDialogType, title: str, title_page: str, content: str, buttons: ButtonListType,
-        l_bt_label: str = '提交', l_bt_tip=None, c_bt_label: str = '重置',  c_bt_tip=None,
-        r_bt_label: str = '取消', r_bt_tip=None) -> ResultType:
+def msg(msg_type: MessageDialogType, title: str, title_page: str, content: str,
+        buttons: ButtonListType = ButtonListType.OK, l_bt_label: str = '提交',
+        l_bt_tip=None, c_bt_label: str = '重置',  c_bt_tip=None,
+        r_bt_label: str = '取消', r_bt_tip=None, elapse: float = 3.0) -> ResultType:
     msg_dialog = IQMMsgDialog()
     ui = Ui_IQMsgDialog()
     ui.setupUi(msg_dialog, msg_type, title, title_page, content, buttons, l_bt_label, l_bt_tip, c_bt_label, c_bt_tip,
-               r_bt_label, r_bt_tip)
+               r_bt_label, r_bt_tip, elapse)
     msg_dialog.setWindowModality(Qt.ApplicationModal)
     msg_dialog.exec_()
     return ui.returnClickButton

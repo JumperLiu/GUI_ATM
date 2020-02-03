@@ -19,6 +19,7 @@ class MessageDialogType(IntEnum):
     ERROR = 5
     SUCCESS = 6
     FAILS = 7
+    SHOW = 8
 
 
 class ButtonListType(IntEnum):

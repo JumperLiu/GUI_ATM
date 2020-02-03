@@ -12,6 +12,7 @@ from ORM.Common.Enums import *
 from ORM.Common.Styles import *
 from SysManager.Images_res_rc import *
 from SysManager.Custom.IQLabel import IQLabel
+from threading import Timer
 
 
 class Ui_IQMsgDialog(object):
@@ -21,9 +22,8 @@ class Ui_IQMsgDialog(object):
         self.returnClickButton = ResultType.CANCEL
 
     def setupUi(self, IQMsgDialog, msg_type: MessageDialogType, title: str, title_page: str, content: str,
-                buttons: ButtonListType, l_bt_label: str = '提交', l_bt_tip=None,
-                c_bt_label: str = '重置', c_bt_tip=None,
-                r_bt_label: str = '取消', r_bt_tip=None):
+                buttons: ButtonListType = ButtonListType.OK, l_bt_label: str = '提交', l_bt_tip=None,
+                c_bt_label: str = '重置', c_bt_tip=None, r_bt_label: str = '取消', r_bt_tip=None, elapse: float = 3.0):
         self.buttonType = buttons
         IQMsgDialog.setObjectName("IQMsgDialog")
         IQMsgDialog.resize(800, 480)
@@ -174,12 +174,12 @@ class Ui_IQMsgDialog(object):
         self.LBL_01_Head_Icon.ML_Signal.connect(self.LBL_01_Head_Icon.setNormalImage)
         self.LBL_01_Head_Icon.setStyleSheet(transparent_label_style())
         self.HLO_01_Head.addWidget(self.LBL_01_Head_Icon)
-        spacerItem11 = QtWidgets.QSpacerItem(15, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem11 = QtWidgets.QSpacerItem(25, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_01_Head.addItem(spacerItem11)
         self.LBL_01_Head_Title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.LBL_01_Head_Title.setMinimumSize(QtCore.QSize(572, 40))
-        self.LBL_01_Head_Title.setMaximumSize(QtCore.QSize(700, 40))
-        self.LBL_01_Head_Title.setBaseSize(QtCore.QSize(572, 40))
+        self.LBL_01_Head_Title.setMinimumSize(QtCore.QSize(716, 40))
+        self.LBL_01_Head_Title.setMaximumSize(QtCore.QSize(716, 40))
+        self.LBL_01_Head_Title.setBaseSize(QtCore.QSize(716, 40))
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
         font.setPointSize(14)
@@ -189,34 +189,8 @@ class Ui_IQMsgDialog(object):
         self.LBL_01_Head_Title.setObjectName("LBL_01_Head_Title")
         self.LBL_01_Head_Title.setStyleSheet(msg_head_style())
         self.HLO_01_Head.addWidget(self.LBL_01_Head_Title)
-        spacerItem12 = QtWidgets.QSpacerItem(15, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem12 = QtWidgets.QSpacerItem(25, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.HLO_01_Head.addItem(spacerItem12)
-        # self.LBL_01_Head_Min_Zoom = IQLabel(self.gridLayoutWidget)
-        # self.LBL_01_Head_Min_Zoom.setMinimumSize(QtCore.QSize(40, 40))
-        # self.LBL_01_Head_Min_Zoom.setMaximumSize(QtCore.QSize(40, 40))
-        # self.LBL_01_Head_Min_Zoom.setBaseSize(QtCore.QSize(40, 40))
-        # self.LBL_01_Head_Min_Zoom.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        # self.LBL_01_Head_Min_Zoom.setMouseTracking(True)
-        # self.LBL_01_Head_Min_Zoom.setText("")
-        # self.LBL_01_Head_Min_Zoom.setScaledContents(True)
-        # self.LBL_01_Head_Min_Zoom.setAlignment(QtCore.Qt.AlignCenter)
-        # self.LBL_01_Head_Min_Zoom.setObjectName("LBL_01_Head_Min_Zoom")
-        # self.HLO_01_Head.addWidget(self.LBL_01_Head_Min_Zoom)
-        # spacerItem13 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        # self.HLO_01_Head.addItem(spacerItem13)
-        # self.LBL_01_Head_Shutdown = QtWidgets.QLabel(self.gridLayoutWidget)
-        # self.LBL_01_Head_Shutdown.setMinimumSize(QtCore.QSize(40, 40))
-        # self.LBL_01_Head_Shutdown.setMaximumSize(QtCore.QSize(40, 40))
-        # self.LBL_01_Head_Shutdown.setBaseSize(QtCore.QSize(40, 40))
-        # self.LBL_01_Head_Shutdown.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        # self.LBL_01_Head_Shutdown.setMouseTracking(True)
-        # self.LBL_01_Head_Shutdown.setText("")
-        # self.LBL_01_Head_Shutdown.setScaledContents(True)
-        # self.LBL_01_Head_Shutdown.setAlignment(QtCore.Qt.AlignCenter)
-        # self.LBL_01_Head_Shutdown.setObjectName("LBL_01_Head_Shutdown")
-        # self.HLO_01_Head.addWidget(self.LBL_01_Head_Shutdown)
-        # spacerItem14 = QtWidgets.QSpacerItem(10, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        # self.HLO_01_Head.addItem(spacerItem14)
         self.gridLayout.addLayout(self.HLO_01_Head, 0, 0, 1, 1)
         # 设置界面背景为透明
         IQMsgDialog.setAttribute(QtCore.Qt.WA_TranslucentBackground)
@@ -224,14 +198,13 @@ class Ui_IQMsgDialog(object):
         IQMsgDialog.setWindowOpacity(0.98)
         self.gridLayoutWidget.setStyleSheet(dialog_background_style(msg_type))
         self.gridLayoutWidget.setWindowOpacity(0.98)
-
-        self.retranslateUi(IQMsgDialog, title, title_page, content, buttons, l_bt_label, l_bt_tip, c_bt_label, c_bt_tip,
-                           r_bt_label, r_bt_tip)
+        self.retranslateUi(IQMsgDialog, msg_type, title, title_page, content, buttons, l_bt_label, l_bt_tip,
+                           c_bt_label, c_bt_tip, r_bt_label, r_bt_tip, elapse)
         QtCore.QMetaObject.connectSlotsByName(IQMsgDialog)
 
-    def retranslateUi(self, IQMsgDialog, title: str, title_page: str, content: str, bts: ButtonListType,
+    def retranslateUi(self, IQMsgDialog, msg_type, title: str, title_page: str, content: str, bts: ButtonListType,
                       l_bt_label: str = '提交', l_bt_tip=None, c_bt_label: str = '重置', c_bt_tip=None,
-                      r_bt_label: str = '取消', r_bt_tip=None):
+                      r_bt_label: str = '取消', r_bt_tip=None, elapse: float = 3.0):
         _translate = QtCore.QCoreApplication.translate
         IQMsgDialog.setWindowTitle(_translate("IQMsgDialog", title))
         self.LBL_01_Head_Title.setText(_translate("IQMsgDialog", title))
@@ -243,46 +216,53 @@ class Ui_IQMsgDialog(object):
         self.PBTN_Reset.setEnabled(False)
         self.PBTN_Cancel.setVisible(False)
         self.PBTN_Cancel.setEnabled(False)
-        if bts == ButtonListType.YESNO or bts == ButtonListType.OKCANCEL or bts == ButtonListType.YESNOCANCEL:
-            self.PBTN_Submit.setText(_translate("IQMsgDialog", l_bt_label))
-            if l_bt_tip is not None:
-                self.PBTN_Submit.setToolTip(l_bt_tip)
-            self.PBTN_Submit.setVisible(True)
-            self.PBTN_Submit.setEnabled(True)
-            self.PBTN_Submit.clicked.connect(self.left_button_clicked)
-        if bts == ButtonListType.OK or bts == ButtonListType.YESNOCANCEL:
-            self.PBTN_Reset.setText(_translate("IQMsgDialog", c_bt_label))
-            if c_bt_tip is not None:
-                self.PBTN_Reset.setToolTip(c_bt_tip)
-            self.PBTN_Reset.setVisible(True)
-            self.PBTN_Reset.setEnabled(True)
-            self.PBTN_Reset.clicked.connect(self.center_button_clicked)
-        if bts == ButtonListType.YESNO or bts == ButtonListType.OKCANCEL or bts == ButtonListType.YESNOCANCEL:
-            self.PBTN_Cancel.setText(_translate("IQMsgDialog", r_bt_label))
-            if r_bt_tip is not None:
-                self.PBTN_Cancel.setToolTip(r_bt_tip)
-            self.PBTN_Cancel.setVisible(True)
-            self.PBTN_Cancel.setEnabled(True)
-            self.PBTN_Cancel.clicked.connect(self.right_button_clicked)
+        if msg_type == MessageDialogType.SHOW:
+            t = Timer(elapse, self.dialog_close)
+            t.start()
+        else:
+            if bts == ButtonListType.YESNO or bts == ButtonListType.OKCANCEL or bts == ButtonListType.YESNOCANCEL:
+                self.PBTN_Submit.setText(_translate("IQMsgDialog", l_bt_label))
+                if l_bt_tip is not None:
+                    self.PBTN_Submit.setToolTip(l_bt_tip)
+                self.PBTN_Submit.setVisible(True)
+                self.PBTN_Submit.setEnabled(True)
+                self.PBTN_Submit.clicked.connect(self.left_button_clicked)
+            if bts == ButtonListType.OK or bts == ButtonListType.YESNOCANCEL:
+                self.PBTN_Reset.setText(_translate("IQMsgDialog", c_bt_label))
+                if c_bt_tip is not None:
+                    self.PBTN_Reset.setToolTip(c_bt_tip)
+                self.PBTN_Reset.setVisible(True)
+                self.PBTN_Reset.setEnabled(True)
+                self.PBTN_Reset.clicked.connect(self.center_button_clicked)
+            if bts == ButtonListType.YESNO or bts == ButtonListType.OKCANCEL or bts == ButtonListType.YESNOCANCEL:
+                self.PBTN_Cancel.setText(_translate("IQMsgDialog", r_bt_label))
+                if r_bt_tip is not None:
+                    self.PBTN_Cancel.setToolTip(r_bt_tip)
+                self.PBTN_Cancel.setVisible(True)
+                self.PBTN_Cancel.setEnabled(True)
+                self.PBTN_Cancel.clicked.connect(self.right_button_clicked)
+
+    def dialog_close(self) -> None:
+        self.gridLayoutWidget.parent().close()
 
     def left_button_clicked(self):
         if self.buttonType == (ButtonListType.YESNO or ButtonListType.YESNOCANCEL):
             self.returnClickButton = ResultType.YES
         elif self.buttonType == ButtonListType.OKCANCEL:
             self.returnClickButton = ResultType.OK
-        self.gridLayoutWidget.parent().close()
+        self.dialog_close()
 
     def center_button_clicked(self):
         if self.buttonType == ButtonListType.OK:
             self.returnClickButton = ResultType.OK
         elif self.buttonType == ButtonListType.YESNOCANCEL:
             self.returnClickButton = ResultType.NO
-        self.gridLayoutWidget.parent().close()
+        self.dialog_close()
 
     def right_button_clicked(self):
         if self.buttonType == ButtonListType.YESNO:
             self.returnClickButton = ResultType.NO
         elif self.buttonType == (ButtonListType.OKCANCEL or ButtonListType.YESNOCANCEL):
             self.returnClickButton = ResultType.CANCEL
-        self.gridLayoutWidget.parent().close()
+        self.dialog_close()
 
