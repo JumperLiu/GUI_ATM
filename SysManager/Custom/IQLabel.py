@@ -77,7 +77,8 @@ class IQLabel(QLabel):
 
     def setHoverImage(self):
         self.__setImage__(True)
-        self.setToolTip(self.hoverToolTip)
+        self.setToolTip("<div style='font-family: 微软雅黑; font-size: 12pt; color: yellow;'><b>{}</b>"
+                        "</div>".format(self.hoverToolTip))
 
     def setMinWindow(self):
         self.parentWindow.showMinimized()
